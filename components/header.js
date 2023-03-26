@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import LanguageSelector from "./reusableUI/LanguageSelector/index";
 const header = () => {
   const [nav, setNav] = useState("");
+  const [toggle, setToggle] = useState(false);
 
   return (
     <div className="mx-auto container ">
@@ -53,6 +55,13 @@ const header = () => {
               <li className="cursor-pointer">
                 <a href="#">Request A Quote</a>
               </li>
+              <div>
+                <LanguageSelector
+                  languages={["English", "French", "Chinese"]}
+                  defaultLanguage="English"
+                  onSelect={(language) => console.log(`Selected ${language}`)}
+                />
+              </div>
             </ul>
           </div>
         </div>
