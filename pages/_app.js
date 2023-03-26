@@ -5,7 +5,7 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>Inertia</title>
+        <title>XDEXPRESS</title>
         <meta />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
