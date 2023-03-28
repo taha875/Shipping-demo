@@ -5,6 +5,9 @@ import Shipping from "../components/shipping/index";
 import WeCanShip from "../components/WeCanShipAnything/index";
 import OurAdvantages from "../components/ourAdvantages/index";
 import Stats from "../components/Stats/index";
+import Testimonials from "../components/testimonials/index";
+import Team from "../components/team/index";
+import Newsletter from "../components/newsletter/index";
 import Footer from "@/components/footer";
 export default function Home() {
   return (
@@ -20,11 +23,11 @@ export default function Home() {
         <div className="w-full flex items-center justify-center">
           <div className="w-96 h-1 bg-yellow-500 my-20"></div>
         </div>
-        <WeCanShip />
+        <OurAdvantages />
         <div className="w-full flex items-center justify-center">
           <div className="w-96 h-1 bg-yellow-500 my-20"></div>
         </div>
-        <OurAdvantages />
+        <WeCanShip />
         <div className="w-full flex items-center justify-center">
           <div className="w-96 h-1 bg-yellow-500 my-20"></div>
         </div>
@@ -32,6 +35,12 @@ export default function Home() {
         <div className="w-full flex items-center justify-center">
           <div className="w-96 h-1 bg-yellow-500 my-20"></div>
         </div>
+        <Testimonials />
+        <div className="w-full flex items-center justify-center">
+          <div className="w-96 h-1 bg-yellow-500 my-20"></div>
+        </div>
+        <Team />
+        <Newsletter />
         {/*<Insurance />
         <Claims />
         <Pricing /> */}
