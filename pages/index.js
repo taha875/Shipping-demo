@@ -6,7 +6,7 @@ import WeCanShip from "../components/WeCanShipAnything/index";
 import OurAdvantages from "../components/ourAdvantages/index";
 import Stats from "../components/Stats/index";
 import Testimonials from "../components/testimonials/index";
-import Team from "../components/team/index";
+import Team from "../components/Team/index";
 import Newsletter from "../components/newsletter/index";
 import Footer from "@/components/footer";
 export default function Home() {
