@@ -1,20 +1,28 @@
+// import Router from "next/router";
 import React, { useState } from "react";
 import LanguageSelector from "./reusableUI/LanguageSelector/index";
+// useRouter
+import { useRouter } from "next/router";
 const header = () => {
   // const [nav, setNav] = useState("");
-  const [toggle, setToggle] = useState(false);
+
+  let Router = useRouter();
   const nav = [
     {
       name: "Home",
+      link: "/",
     },
     {
-      name: "Shipping",
+      name: "About Us",
+      link: "/aboutUs",
     },
     {
-      name: "Claims",
+      name: "Services",
+      link: "/services",
     },
     {
-      name: "Pricing",
+      name: "Contact Us",
+      link: "/contactUs",
     },
   ];
 
@@ -200,44 +208,68 @@ const header = () => {
           <div className="flex items-center">
             <div className="flex items-center">
               <p className="text-gray-100 text-sm font-medium">Phone No :</p>
-              <p className="text-gray-100 text-base pl-3">000000000</p>
+              <p className="text-gray-100 text-base pl-3  cursor-pointer hover:text-yellow-500">
+                000000000
+              </p>
             </div>
             <div className="w-1 h-1 rounded-full bg-gray-700 mx-6"></div>
             <div className="flex items-center">
               <p className="text-gray-100 text-sm font-medium">Email :</p>
-              <p className="text-gray-100 text-base pl-3">example@gmail.com</p>
+              <p
+                onClick={() => {
+                  window.location.href = "mailto:taha";
+                }}
+                className="text-gray-100 text-base pl-3  cursor-pointer hover:text-yellow-500"
+              >
+                example@gmail.com
+              </p>
             </div>
           </div>
           <div className="flex items-center">
             <div className="flex items-center">
-              <p className="text-gray-100 text-sm font-medium">
+              <p className="text-gray-100 text-sm font-medium  cursor-pointer hover:text-yellow-500">
                 Shipment Tracking
               </p>
             </div>
             <div className="w-1 h-1 rounded-full bg-gray-700 mx-6"></div>
             <div className="flex items-center">
-              <p className="text-gray-100 text-sm font-medium">Login</p>
+              <p className="text-gray-100 text-sm font-medium  cursor-pointer hover:text-yellow-500">
+                Login
+              </p>
             </div>
           </div>
         </div>
       </div>
       <div className="bg-gray-800">
         <div className=" mx-auto container w-full py-6 px-4 flex items-center justify-between">
-          <h1 className="text-yellow-500 font-bold text-4xl">XDEXPRESS</h1>
+          <h1
+            onClick={() => Router.push("/")}
+            className="text-yellow-500 cursor-pointer font-bold text-4xl"
+          >
+            XDEXPRESS
+          </h1>
           <div className="flex items-center">
             <ul className="flex items-center justify-center">
               {nav.map((nav, i) => {
                 return (
                   <li
                     key={i}
-                    className="text-gray-100 text-sm font-medium pl-6 cursor-pointer hover:text-yellow-500"
+                    onClick={() => Router.push(nav.link)}
+                    className={`${
+                      Router.pathname === nav.link
+                        ? "text-yellow-500"
+                        : "text-gray-100"
+                    }  text-sm font-medium pl-6 cursor-pointer hover:text-yellow-500`}
                   >
                     {nav.name}
                   </li>
                 );
               })}
             </ul>
-            <button className="ml-6 hover:bg-yellow-400 px-4 py-2 text-base bg-yellow-500 text-gray-900 font-medium rounded-md">
+            <button
+              onClick={() => Router.push("/calculatePrice")}
+              className="ml-6 hover:bg-yellow-400 px-4 py-2 text-base bg-yellow-500 text-gray-900 font-medium rounded-md"
+            >
               Get A Quote
             </button>
           </div>
