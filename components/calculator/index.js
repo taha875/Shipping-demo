@@ -21,6 +21,9 @@ function index() {
   let estInch = Math.round(((length * width * height) / 139) * 5.8);
   let estCm = Math.round(((length * width * height) / 5000) * 2.2 * 5.8);
 
+  let PoundPriceInch = (5.8 / estInch) * (length * width * height);
+  let PoundPricecm = (5.8 / estCm) * (length * width * height);
+
   return (
     <div className="mx-auto container px-4 xl:px-0 my-10">
       <div className="xl:flex items-center lg:mt-12">
@@ -114,6 +117,16 @@ function index() {
                 <div className="flex items-center gap-x-6">
                   <input
                     className="w-full mt-2 bg-transparent focus:outline-none text-white border-b-2 pb-1 text-base placeholder:text-gray-100"
+                    placeholder="Weight"
+                    type="number"
+                    name="weight"
+                    key={"weight"}
+                    onChange={(e) => {
+                      updateForm(e);
+                    }}
+                  />
+                  <input
+                    className="w-full mt-2 bg-transparent focus:outline-none text-white border-b-2 pb-1 text-base placeholder:text-gray-100"
                     placeholder="Length"
                     type="number"
                     name="length"
@@ -148,10 +161,12 @@ function index() {
                 Total Estimate
               </p>
               {toggleBtn ? (
-                <p className="text-white text-4xl text-center mt-2">${estCm}</p>
+                <p className="text-white text-4xl text-center mt-2">
+                  ${PoundPricecm}
+                </p>
               ) : (
                 <p className="text-white text-4xl text-center mt-2">
-                  ${estInch}
+                  ${PoundPriceInch}
                 </p>
               )}
             </div>

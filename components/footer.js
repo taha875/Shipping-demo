@@ -125,7 +125,7 @@ const footer = () => {
               </ul>
             </div>
           </div>
-          <div className="w-full lg:w-1/2 mt-10 lg:mt-0 flex justify-center lg:justify-end">
+          <div className="w-full lg:w-1/2 mt-10 lg:mt-0 flex justify-center lg:justify-end opacity-0">
             <div className="w-10/12 lg:w-1/2">
               <h1 className="text-lg text-gray-100 font-semibold tracking-wide mb-6 text-center lg:text-left">
                 Subscribe to our Newsletter
