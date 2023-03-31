@@ -18,8 +18,8 @@ function index() {
   };
 
   let { length, width, height } = form;
-  let estInch = Math.round(((length * width * height) / 139) * 5.8);
-  let estCm = Math.round(((length * width * height) / 5000) * 2.2 * 5.8);
+  let estInch = Math.round((length * width * height) / 139);
+  let estCm = Math.round(((length * width * height) / 5000) * 2.2);
 
   let PoundPriceInch = (5.8 / estInch) * (length * width * height);
   let PoundPricecm = (5.8 / estCm) * (length * width * height);
