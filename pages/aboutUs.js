@@ -1,18 +1,13 @@
 import React from "react";
-import Header from "../components/header";
+import Header from "../components/Layout/header";
 import CTAHeader from "../components/reusableUI/header/header";
-import Footer from "@/components/footer";
+import Footer from "@/components/Layout/footer";
 import AboutUs from "../components/aboutUs/index";
 function trackShipping() {
   return (
     <div>
-      <Header />
-      <CTAHeader
-        heading={"About Us"}
-       
-      />
+      <CTAHeader heading={"About Us"} />
       <AboutUs />
-      <Footer />
     </div>
   );
 }

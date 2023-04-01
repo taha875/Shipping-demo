@@ -1,11 +1,6 @@
-// import Router from "next/router";
 import React, { useState } from "react";
-import LanguageSelector from "./reusableUI/LanguageSelector/index";
-// useRouter
 import { useRouter } from "next/router";
 const header = () => {
-  // const [nav, setNav] = useState("");
-
   let Router = useRouter();
   const nav = [
     {

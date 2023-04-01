@@ -1,28 +1,8 @@
 import React, { useState } from "react";
+import Calculator from "./Calculator";
 
 function index() {
-  const [form, setForm] = React.useState({
-    length: "",
-    width: "",
-    height: "",
-  });
-  const [toggleBtn, setToggleBtn] = useState(false);
-
-  const handleToggle = () => {
-    setToggleBtn((prevToggle) => !prevToggle);
-    console.log(toggleBtn);
-  };
-
-  const updateForm = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  let { length, width, height } = form;
-  let estInch = Math.round((length * width * height) / 139);
-  let estCm = Math.round(((length * width * height) / 5000) * 2.2);
-
-  let PoundPriceInch = (5.8 / estInch) * (length * width * height);
-  let PoundPricecm = (5.8 / estCm) * (length * width * height);
+  const [loader, setLoader] = useState(false);
 
   return (
     <div className="mx-auto container px-4 xl:px-0 my-10">
@@ -88,88 +68,14 @@ function index() {
           </p>
         </div>
         <div className="lg:flex items-center">
-          <div className="px-11 py-12 bg-yellow-600  w-[659px] rounded-3xl mt-6 lg:mt-0 lg:ml-8 flex-shrink-0">
-            <h1 className="text-xl lg:text-4xl text-center font-medium text-white pb-6 tracking-wider">
-              Enter Your Details
-            </h1>
+          <div className="px-11 flex items-center justify-center flex-col bg-yellow-600 h-[473px] w-[659px] rounded-3xl mt-6 lg:mt-0 lg:ml-8 flex-shrink-0">
+            {loader ? null : (
+              <h1 className="text-xl lg:text-4xl text-center font-medium text-white pb-6">
+                Enter Your Details
+              </h1>
+            )}
 
-            <div className="flex items-center justify-center mb-6">
-              <span className="mr-4 text-white">Inch</span>
-              <label
-                htmlFor="toggle"
-                className="flex items-center cursor-pointer"
-              >
-                <div onClick={handleToggle} className="relative">
-                  <div className="block bg-gray-600 w-14 h-8 rounded-full" />
-                  <div
-                    className={`dot absolute ${
-                      toggleBtn ? "right-1" : "left-1"
-                    } top-1 bg-white w-6 h-6 rounded-full  transform ease-in-out duration-300`}
-                  />
-                </div>
-              </label>
-              <span className="ml-4 text-white">Centimeters</span>
-            </div>
-
-            <div className=" relative">
-              <label className="text-white text-lg">
-                Estimate in {toggleBtn ? "Centimeters" : "Inches"}
-                <div className="flex items-center gap-x-6">
-                  <input
-                    className="w-full mt-2 bg-transparent focus:outline-none text-white border-b-2 pb-1 text-base placeholder:text-gray-100"
-                    placeholder="Weight"
-                    type="number"
-                    name="weight"
-                    key={"weight"}
-                    onChange={(e) => {
-                      updateForm(e);
-                    }}
-                  />
-                  <input
-                    className="w-full mt-2 bg-transparent focus:outline-none text-white border-b-2 pb-1 text-base placeholder:text-gray-100"
-                    placeholder="Length"
-                    type="number"
-                    name="length"
-                    key={"length"}
-                    onChange={(e) => {
-                      updateForm(e);
-                    }}
-                  />
-                  <input
-                    className="w-full mt-2 bg-transparent focus:outline-none text-white border-b-2 pb-1 text-base placeholder:text-gray-100"
-                    placeholder="Width"
-                    type="number"
-                    name="width"
-                    key={"width"}
-                    onChange={(e) => {
-                      updateForm(e);
-                    }}
-                  />
-                  <input
-                    className="w-full mt-2 bg-transparent focus:outline-none text-white border-b-2 pb-1 text-base placeholder:text-gray-100"
-                    placeholder="Height"
-                    type="number"
-                    name="height"
-                    key={"height"}
-                    onChange={(e) => {
-                      updateForm(e);
-                    }}
-                  />
-                </div>
-              </label>
-              <p className="text-white text-xl text-center mt-12">
-                Total Estimate
-              </p>
-              {toggleBtn ? (
-                <p className="text-white text-4xl text-center mt-2">
-                  ${PoundPricecm}
-                </p>
-              ) : (
-                <p className="text-white text-4xl text-center mt-2">
-                  ${PoundPriceInch}
-                </p>
-              )}
-            </div>
+            <Calculator loader={loader} setLoader={setLoader} />
           </div>
         </div>
       </div>
