@@ -3,7 +3,8 @@ import Input from "../reusableUI/Input/Input";
 
 function calculateWeight(weight, dimensions, unit) {
   let estimatedWeight;
-  if (weight) {
+  console.log(weight, dimensions, unit);
+  if (weight > 1) {
     estimatedWeight = weight;
   } else {
     const inchesToPound = 139;
@@ -31,7 +32,7 @@ function calculatePrice(weight, pricePerPound, currency) {
 }
 
 export default function Calculator({ loader, setLoader }) {
-  const [weight, setWeight] = useState("");
+  const [weight, setWeight] = useState(1);
   const [unit, setUnit] = useState("lb");
   const [dimensions, setDimensions] = useState(["", "", ""]);
   const [dimensionUnit, setDimensionUnit] = useState("inch");
@@ -43,6 +44,11 @@ export default function Calculator({ loader, setLoader }) {
 
   const handleWeightChange = (e) => {
     setWeight(e.target.value);
+  };
+
+  const multiplyDimensions = () => {
+    const product = dimensions.reduce((acc, val) => acc * Number(val), 1);
+    return product;
   };
 
   const handleUnitChange = (e) => {
@@ -67,7 +73,7 @@ export default function Calculator({ loader, setLoader }) {
     e.preventDefault();
     const estimatedWeight = calculateWeight(weight, dimensions, dimensionUnit);
     let finalWeight = estimatedWeight;
-    if (weight) {
+    if (weight < 1) {
       finalWeight =
         parseFloat(estimatedWeight) > parseFloat(weight)
           ? parseFloat(estimatedWeight)
@@ -82,7 +88,7 @@ export default function Calculator({ loader, setLoader }) {
     setResult(price);
   };
   const handleReset = () => {
-    setWeight("");
+    setWeight(1);
     setUnit("lb");
     setDimensions(["", "", ""]);
     setDimensionUnit("inch");
@@ -100,7 +106,7 @@ export default function Calculator({ loader, setLoader }) {
               <h2 className="text-2xl text-center font-medium text-white pb-2">
                 Estimated Shipping Cost:
               </h2>
-              <p className="text-4xl text-center font-bold text-white pb-4">{`${result} ${currency.toUpperCase()}`}</p>
+              <p className="text-4xl text-center font-bold text-white pb-4">{`${result} $`}</p>
               <button
                 onClick={handleReset}
                 className="w-24 hover:bg-yellow-400 px-4 py-4 text-base bg-yellow-500 text-white font-medium rounded-md"
@@ -117,12 +123,12 @@ export default function Calculator({ loader, setLoader }) {
               htmlFor="weight"
               className="text-white text-base font-medium"
             >
-              Enter weight
+              Enter package weight
             </label>
             <div className="flex items-center gap-x-16">
               <Input
                 type={"number"}
-                placeholder={"Weight (Optional)"}
+                placeholder={"Actual Weight"}
                 id={"weight"}
                 name={"weight"}
                 value={weight}
@@ -142,9 +148,9 @@ export default function Calculator({ loader, setLoader }) {
           <div className=" mb-4">
             <label
               htmlFor="dimensions"
-              className=" text-white text-base font-medium"
+              className=" text-white text-base font-medium capitalize"
             >
-              Enter dimensions (L x W x H):
+              Enter dimensions TO GET SHIPPING WEIGHT: (L x W x H):
             </label>
             <div className="flex items-center gap-x-16">
               <Input
@@ -181,6 +187,13 @@ export default function Calculator({ loader, setLoader }) {
               </select>
             </div>
           </div>
+
+          <p className=" text-white text-base font-medium capitalize my-4">
+            Shipping Weight Is{" "}
+            <span className="text-lg border p-2">
+              {multiplyDimensions()} {dimensionUnit}
+            </span>
+          </p>
           <div className="flex flex-col mb-4">
             <label
               htmlFor="currency"
@@ -193,8 +206,8 @@ export default function Calculator({ loader, setLoader }) {
               onChange={handleCurrencyChange}
               className="p-2 mt-2 rounded-md border-gray-400 border"
             >
-              <option value="lb">USD/lb</option>
-              <option value="kg">USD/kg</option>
+              <option value="lb">Price Per Pound</option>
+              <option value="kg">Price per Kg</option>
             </select>
           </div>
           <button
