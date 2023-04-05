@@ -195,9 +195,7 @@ export default function Calculator({ loader, setLoader }) {
 
           <p className=" text-white text-base font-medium capitalize my-8">
             Shipping Weight Is{" "}
-            <span className="text-lg border p-2">
-              {multiplyDimensions()} {dimensionUnit}
-            </span>
+            <span className="text-lg border p-2">{multiplyDimensions()}</span>
           </p>
           <div className="flex flex-col mb-4">
             <label
