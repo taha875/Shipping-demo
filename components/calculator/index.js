@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Calculator from "./Calculator";
-import Calc from "./Calc";
 
 function index() {
   const [loader, setLoader] = useState(false);
@@ -69,7 +68,7 @@ function index() {
           </p>
         </div>
         <div className="lg:flex items-center">
-          <div className="px-11 flex items-center justify-center flex-col bg-yellow-600 h-[483px] w-[659px] rounded-3xl mt-6 lg:mt-0 lg:ml-8 flex-shrink-0">
+          <div className="px-11 flex items-center justify-center flex-col bg-yellow-600 h-[525px] w-[659px] rounded-3xl mt-6 lg:mt-0 lg:ml-8 flex-shrink-0">
             {loader ? null : (
               <h1 className="text-xl lg:text-4xl text-center font-medium text-white pb-6">
                 Enter Your Details
@@ -77,7 +76,6 @@ function index() {
             )}
 
             <Calculator loader={loader} setLoader={setLoader} />
-            {/* <Calc /> */}
           </div>
         </div>
       </div>

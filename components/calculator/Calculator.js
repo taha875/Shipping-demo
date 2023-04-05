@@ -48,6 +48,11 @@ export default function Calculator({ loader, setLoader }) {
 
   const multiplyDimensions = () => {
     const product = dimensions.reduce((acc, val) => acc * Number(val), 1);
+    if (dimensionUnit === "cm") {
+      return ((product / 5000) * 2.2).toFixed(2);
+    } else if (dimensionUnit === "inch") {
+      return (product / 139).toFixed(2);
+    }
     return product;
   };
 
@@ -188,7 +193,7 @@ export default function Calculator({ loader, setLoader }) {
             </div>
           </div>
 
-          <p className=" text-white text-base font-medium capitalize my-4">
+          <p className=" text-white text-base font-medium capitalize my-8">
             Shipping Weight Is{" "}
             <span className="text-lg border p-2">
               {multiplyDimensions()} {dimensionUnit}
