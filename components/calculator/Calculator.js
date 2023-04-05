@@ -204,7 +204,7 @@ export default function Calculator({ loader, setLoader }) {
               htmlFor="currency"
               className="text-base font-medium text-white"
             >
-              Choose currency:
+              Choose Price Unit:
             </label>
             <select
               value={currency}
