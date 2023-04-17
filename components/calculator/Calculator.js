@@ -136,6 +136,12 @@ export default function Calculator({ loader, setLoader }) {
       ) : (
         <form onSubmit={handleSubmit} className="w-full">
           <div className="flex flex-col w-full mb-4">
+            <label
+              htmlFor="weight"
+              className="text-white text-base font-medium"
+            >
+              Enter package type
+            </label>
             <select
               value={type}
               onChange={handleTypeChange}
