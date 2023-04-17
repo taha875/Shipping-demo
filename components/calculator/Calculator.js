@@ -8,13 +8,12 @@ function calculateWeight(weight, dimensions, unit) {
     estimatedWeight = weight;
   } else {
     const inchesToPound = 139;
-    const cmToPound = 5000 * 2.2;
     const totalDimension = dimensions.reduce((acc, cur) => acc * cur, 1);
     if (unit === "inch") {
       estimatedWeight = totalDimension / inchesToPound;
       console.log(estimatedWeight);
     } else if (unit === "cm") {
-      estimatedWeight = (totalDimension / cmToPound).toFixed(2);
+      estimatedWeight = ((totalDimension / 5000) * 2.2).toFixed(2);
     }
   }
   console.log(estimatedWeight);
@@ -24,6 +23,7 @@ function calculateWeight(weight, dimensions, unit) {
 function calculatePrice(weight, pricePerPound, currency) {
   let price;
   if (currency === "kg") {
+    console.log(weight, pricePerPound, currency, "-----------------------");
     price = (weight * 12.76).toFixed(2);
   } else if (currency === "lb") {
     price = (weight * 5.8).toFixed(2);
@@ -38,16 +38,22 @@ export default function Calculator({ loader, setLoader }) {
   const [dimensionUnit, setDimensionUnit] = useState("inch");
   const [currency, setCurrency] = useState("lb");
   const [result, setResult] = useState("");
+  const [type, setType] = useState("document");
+  const [maxWeightError, setMaxWeightError] = useState(false);
 
   const isCalculateButtonActive =
     weight || dimensions.every((dimension) => dimension);
 
   const handleWeightChange = (e) => {
+    if (e.target.value > 5) {
+      setMaxWeightError(true);
+    }
     setWeight(e.target.value);
   };
 
   const multiplyDimensions = () => {
-    const product = dimensions.reduce((acc, val) => acc * Number(val), 1);
+    const product = dimensions.reduce((acc, cur) => acc * cur, 1);
+    console.log(product);
     if (dimensionUnit === "cm") {
       return ((product / 5000) * 2.2).toFixed(2);
     } else if (dimensionUnit === "inch") {
@@ -59,7 +65,9 @@ export default function Calculator({ loader, setLoader }) {
   const handleUnitChange = (e) => {
     setUnit(e.target.value);
   };
-
+  const handleTypeChange = (e) => {
+    setType(e.target.value);
+  };
   const handleDimensionsChange = (e, index) => {
     const newDimensions = [...dimensions];
     newDimensions[index] = e.target.value;
@@ -101,6 +109,10 @@ export default function Calculator({ loader, setLoader }) {
     setResult("");
     setLoader(false);
   };
+  // interval for false
+  setTimeout(() => {
+    setMaxWeightError(false);
+  }, 5000);
 
   return (
     <>
@@ -124,12 +136,21 @@ export default function Calculator({ loader, setLoader }) {
       ) : (
         <form onSubmit={handleSubmit} className="w-full">
           <div className="flex flex-col w-full mb-4">
+            <select
+              value={type}
+              onChange={handleTypeChange}
+              className="p-2 rounded-md border-gray-400 border mb-4"
+            >
+              <option value="document">Document</option>
+              <option value="non-document">Non-Document</option>
+            </select>
             <label
               htmlFor="weight"
               className="text-white text-base font-medium"
             >
               Enter package weight
             </label>
+
             <div className="flex items-center gap-x-16">
               <Input
                 type={"number"}
@@ -149,6 +170,12 @@ export default function Calculator({ loader, setLoader }) {
                 <option value="kg">kg</option>
               </select>
             </div>
+            {maxWeightError && (
+              <p className="text-red-800 text-sm font-bold">
+                Max weight should be 5 lb. Charges of more than 5 lb will be $5
+                per pound
+              </p>
+            )}
           </div>
           <div className=" mb-4">
             <label
@@ -165,6 +192,7 @@ export default function Calculator({ loader, setLoader }) {
                 name={"length"}
                 value={dimensions[0]}
                 onChange={(e) => handleDimensionsChange(e, 0)}
+                disabled={type === "document" ? true : false}
               />
               <Input
                 type={"number"}
@@ -173,6 +201,7 @@ export default function Calculator({ loader, setLoader }) {
                 name={"width"}
                 value={dimensions[1]}
                 onChange={(e) => handleDimensionsChange(e, 1)}
+                disabled={type === "document" ? true : false}
               />
               <Input
                 type={"number"}
@@ -181,6 +210,7 @@ export default function Calculator({ loader, setLoader }) {
                 name={"height"}
                 value={dimensions[2]}
                 onChange={(e) => handleDimensionsChange(e, 2)}
+                disabled={type === "document" ? true : false}
               />
               <select
                 value={dimensionUnit}
