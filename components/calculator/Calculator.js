@@ -45,7 +45,7 @@ export default function Calculator({ loader, setLoader }) {
     weight || dimensions.every((dimension) => dimension);
 
   const handleWeightChange = (e) => {
-    if (e.target.value > 5) {
+    if ((type === "document") & (e.target.value > 5)) {
       setMaxWeightError(true);
     }
     setWeight(e.target.value);
@@ -112,7 +112,7 @@ export default function Calculator({ loader, setLoader }) {
   // interval for false
   setTimeout(() => {
     setMaxWeightError(false);
-  }, 5000);
+  }, 50000);
 
   return (
     <>
